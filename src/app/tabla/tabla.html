@@ -1,0 +1,75 @@
+<div class="tabla-container">
+  <div class="tabla-header">
+    <h2>Lista de Empleados</h2>
+  </div>
+  
+  <table mat-table [dataSource]="empleados" class="mat-elevation-z8">
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let empleado">{{empleado.id}}</td>
+    </ng-container>
+
+    <!-- Nombre Column -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let empleado">{{empleado.nombre}}</td>
+    </ng-container>
+
+    <!-- Apellido Column -->
+    <ng-container matColumnDef="apellido">
+      <th mat-header-cell *matHeaderCellDef>Apellido</th>
+      <td mat-cell *matCellDef="let empleado">{{empleado.apellido}}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let empleado">{{empleado.email}}</td>
+    </ng-container>
+
+    <!-- Teléfono Column -->
+    <ng-container matColumnDef="telefono">
+      <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+      <td mat-cell *matCellDef="let empleado">{{empleado.telefono}}</td>
+    </ng-container>
+
+    <!-- Departamento Column -->
+    <ng-container matColumnDef="departamento">
+      <th mat-header-cell *matHeaderCellDef>Departamento</th>
+      <td mat-cell *matCellDef="let empleado">{{empleado.departamento}}</td>
+    </ng-container>
+
+    <!-- Salario Column -->
+    <ng-container matColumnDef="salario">
+      <th mat-header-cell *matHeaderCellDef>Salario</th>
+      <td mat-cell *matCellDef="let empleado">{{formatearSalario(empleado.salario)}}</td>
+    </ng-container>
+
+    <!-- Fecha Contratación Column -->
+    <ng-container matColumnDef="fechaContratacion">
+      <th mat-header-cell *matHeaderCellDef>Fecha Contratación</th>
+      <td mat-cell *matCellDef="let empleado">{{formatearFecha(empleado.fechaContratacion)}}</td>
+    </ng-container>
+
+    <!-- Acciones Column -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let empleado">
+        <button mat-icon-button color="primary" (click)="editarEmpleado(empleado)" matTooltip="Editar">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="eliminarEmpleado(empleado.id!)" matTooltip="Eliminar">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div *ngIf="empleados.length === 0" class="no-data">
+    <p>No hay empleados registrados</p>
+  </div>
+</div> 

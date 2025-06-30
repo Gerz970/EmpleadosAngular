@@ -1,0 +1,114 @@
+<div class="formulario-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ isEditing ? 'Editar Empleado' : 'Registrar Nuevo Empleado' }}</mat-card-title>
+      <mat-card-subtitle>Complete todos los campos requeridos</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="empleadoForm" (ngSubmit)="onSubmit()" class="empleado-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" placeholder="Ingrese el nombre">
+            <mat-error *ngIf="empleadoForm.get('nombre')?.hasError('required')">
+              {{ getErrorMessage('nombre') }}
+            </mat-error>
+            <mat-error *ngIf="empleadoForm.get('nombre')?.hasError('minlength')">
+              {{ getErrorMessage('nombre') }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="apellido" placeholder="Ingrese el apellido">
+            <mat-error *ngIf="empleadoForm.get('apellido')?.hasError('required')">
+              {{ getErrorMessage('apellido') }}
+            </mat-error>
+            <mat-error *ngIf="empleadoForm.get('apellido')?.hasError('minlength')">
+              {{ getErrorMessage('apellido') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" placeholder="ejemplo@correo.com">
+            <mat-error *ngIf="empleadoForm.get('email')?.hasError('required')">
+              {{ getErrorMessage('email') }}
+            </mat-error>
+            <mat-error *ngIf="empleadoForm.get('email')?.hasError('email')">
+              {{ getErrorMessage('email') }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono" placeholder="Ingrese el teléfono">
+            <mat-error *ngIf="empleadoForm.get('telefono')?.hasError('required')">
+              {{ getErrorMessage('telefono') }}
+            </mat-error>
+            <mat-error *ngIf="empleadoForm.get('telefono')?.hasError('pattern')">
+              {{ getErrorMessage('telefono') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Departamento</mat-label>
+            <mat-select formControlName="departamento">
+              <mat-option *ngFor="let dept of departamentos" [value]="dept">
+                {{ dept }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="empleadoForm.get('departamento')?.hasError('required')">
+              {{ getErrorMessage('departamento') }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Salario</mat-label>
+            <input matInput formControlName="salario" type="number" placeholder="45000">
+            <span matTextSuffix>$</span>
+            <mat-error *ngIf="empleadoForm.get('salario')?.hasError('required')">
+              {{ getErrorMessage('salario') }}
+            </mat-error>
+            <mat-error *ngIf="empleadoForm.get('salario')?.hasError('min')">
+              {{ getErrorMessage('salario') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha de Contratación</mat-label>
+            <input matInput formControlName="fechaContratacion" type="date">
+            <mat-error *ngIf="empleadoForm.get('fechaContratacion')?.hasError('required')">
+              {{ getErrorMessage('fechaContratacion') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit" 
+            [disabled]="empleadoForm.invalid">
+            {{ isEditing ? 'Actualizar' : 'Guardar' }}
+          </button>
+          
+          <button 
+            mat-button 
+            type="button" 
+            (click)="cancelarEdicion()">
+            {{ isEditing ? 'Cancelar' : 'Volver' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+  
